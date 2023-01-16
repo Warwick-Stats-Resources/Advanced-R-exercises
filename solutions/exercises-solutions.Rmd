@@ -1,0 +1,89 @@
+---
+title: "Programming Exercises"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# show code in output
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+## Function exercise
+
+```{r qq_norm}
+## work out slope and intercept of line for Q-Q plot N(0, 1)
+qq_norm <- function(y){
+    q_sample <- quantile(y, # sample data
+                         c(0.25, 0.75), # quantiles to compute (only need 2)
+                         names = FALSE, na.rm = TRUE )
+    q_theory <- qnorm(c(0.25, 0.75)) # work out theoretical quantiles
+    slope <- diff(q_sample) / diff(q_theory) # slope = (y2 - y1)/(x2 - x1)
+    intercept <- q_sample[1] - slope * q_theory[1] # intercept = y1 - slope*x1
+    list(slope = slope, intercept = intercept)
+}
+```
+
+
+```{r normal-QQ}
+# simulate random sample from a normal distribution
+y <- rnorm(1000, 100, 5)
+
+# find parameters of line to add to QQ-plot
+par <- qq_norm(y)
+
+# QQ-plot (vs standard normal, should fall along line)
+dat <- data.frame(sample = y, theoretical = rnorm(1000))
+ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
+    geom_point() +
+    geom_abline(slope = par$slope,
+                intercept = par$intercept)
+```
+
+```{r qq}
+## work out slope and intercept of line for Q-Q plot any theoretical distribution
+qq <- function(y, fun = qnorm, ...){
+    q_sample <- quantile(y, # sample data
+                         c(0.25, 0.75), # quantiles to compute (only need 2)
+                         names = FALSE, na.rm = TRUE)
+    qfun <- match.fun(fun)
+    q_theory <- qfun(c(0.25, 0.75), ...) # work out theoretical quantiles
+    slope <- diff(q_sample) / diff(q_theory) # slope = (y2 - y1)/(x2 - x1)
+    intercept <- q_sample[1] - slope * q_theory[1] # intercept = y1 - slope*x1
+    list(slope = slope, intercept = intercept)
+}
+```
+
+```{r t-QQ}
+t_statistic <- function(n) {
+    x <- rnorm(n)
+    y <- rnorm(n)
+    t.test(x, y)$statistic
+}
+# find parameters of line to add to QQ-plot
+# based on simulated t-statistics and reference t_18 distribution
+tstat <- replicate(1000, t_statistic(10))
+par <- qq(tstat, qt, df = 18)
+tval <- rt(1000, df = 18)
+
+## QQ-plot
+dat <- data.frame(sample = tstat, theoretical = tval)
+ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
+    geom_point() +
+    geom_abline(slope = par$slope,
+                intercept = par$intercept)
+
+```
+
+## Documentation and Testing Exercise
+
+```{r documentation}
+library(docstring)
+source("functions.R")
+?qq
+```
+
+```{r tests}
+library(testthat)
+test_file("tests.R")
+```
