@@ -8,13 +8,17 @@ editor_options:
 ```{r setup, include=FALSE}
 # show code in output
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
 
-## Function exercise
+## Exercise 1
+
+Turn the following code into a function named `qq_norm` taking the sample data 
+as an argument and returning the slope and intercept in a list.
 
 ```{r qq_norm}
 ## work out slope and intercept of line for quantile-quantile plot
-q_sample <- quantile(data, # sample data
+q_sample <- quantile(y, # sample data
                      c(0.25, 0.75), # quantiles to compute (only need 2)
                      names = FALSE, na.rm = TRUE)
 q_theory <- qnorm(c(0.25, 0.75)) # work out theoretical quantiles
@@ -22,6 +26,9 @@ slope <- diff(q_sample) / diff(q_theory) # slope = (y2 - y1)/(x2 - x1)
 intercept <- q_sample[1] - slope * q_theory[1] # intercept = y1 - slope*x1
 ```
 
+Run the `qq_norm` chunk to source your new function, then run the 
+`normal-QQ` chunk below, which uses the `qq_norm` function to compute 
+parameters for an example plot.
 
 ```{r normal-QQ}
 # simulate random sample from a normal distribution
@@ -38,12 +45,33 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
                 intercept = par$intercept)
 ```
 
+## Exercise 2
+
+Copy your `qq_norm()` fuction to the `qq` chunk below and rename the function `qq`. 
+
+Add a new argument `fun` to specify any quantile function (e.g. `qt`, `qf`, 
+etc). Give it the default value `qnorm`. 
+
+Inside the function use `qfun <- match.fun(fun)` to get 
+the quantile function matching `fun`, then use `qfun` instead of `qnorm` 
+to compute `q_theory`. Use `...` to pass on arguments to `qfun`.
+
 ```{r qq}
 ## work out slope and intercept of line for Q-Q plot any theoretical distribution
 
 ```
 
+Run the `qq` chunk and test your function on the `t-QQ` chunk below.
+
 ```{r t-QQ}
+# compute two sample t statistics for 1000 simulated normal samples of size 10
+t_statistic <- function(n) {
+    x <- rnorm(n)
+    y <- rnorm(n)
+    t.test(x, y)$statistic
+}
+tstat <- replicate(1000, t_statistic(10))
+
 # find parameters of line to add to QQ-plot
 # based on simulated t-statistics and reference t_18 distribution
 par <- qq(tstat, qt, df = 18)
@@ -57,16 +85,4 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
 
 ```
 
-## Documentation and Testing Exercise
-
-```{r documentation}
-library(docstring)
-source("functions.R")
-?qq
-```
-
-```{r tests}
-library(testthat)
-test_file("tests.R")
-```
 
