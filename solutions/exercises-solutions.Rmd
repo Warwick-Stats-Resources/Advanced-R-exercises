@@ -9,7 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 ```
 
-## Function exercise
+## Exercise 1
+
+Create a function named `qq_norm` taking a vector of sample data 
+as an argument and returning the slope and intercept of the line for 
+a Q-Q plot in a list.
 
 ```{r qq_norm}
 ## work out slope and intercept of line for Q-Q plot N(0, 1)
@@ -24,6 +28,8 @@ qq_norm <- function(y){
 }
 ```
 
+Use the `qq_norm` function to compute the 
+parameters for an example plot.
 
 ```{r normal-QQ}
 # simulate random sample from a normal distribution
@@ -40,6 +46,11 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
                 intercept = par$intercept)
 ```
 
+## Exercise 2
+
+Generalise function from Exercise 1 to create function to compute 
+slope and intercept for a Q-Q plot based on any theoretical distribution.
+
 ```{r qq}
 ## work out slope and intercept of line for Q-Q plot any theoretical distribution
 qq <- function(y, fun = qnorm, ...){
@@ -53,6 +64,8 @@ qq <- function(y, fun = qnorm, ...){
     list(slope = slope, intercept = intercept)
 }
 ```
+
+Check the new function works as expected for the t distribution.
 
 ```{r t-QQ}
 t_statistic <- function(n) {
@@ -73,17 +86,4 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
     geom_abline(slope = par$slope,
                 intercept = par$intercept)
 
-```
-
-## Documentation and Testing Exercise
-
-```{r documentation}
-library(docstring)
-source("functions.R")
-?qq
-```
-
-```{r tests}
-library(testthat)
-test_file("tests.R")
 ```
