@@ -1,7 +1,5 @@
-# Advanced R Exercises
+# Advanced R Exercises and Files
 
-Exercises for the [Advanced R course](https://warwick-stats-resources.github.io/R-training/schedule/02-advanced.html)
+Exercises and Additional files for the [Advanced R course](https://warwick-stats-resources.github.io/advanced-r-packages)
 
-Slides for the courses are in the [course website's repo](https://github.com/Warwick-Stats-Resources/R-training)
-
-Originally from [Heather Turner's Advanced R](https://github.com/hturner/advanced-r) course
+(Minimally) adapted from [Heather Turner's Advanced R](https://github.com/hturner/advanced-r) course
