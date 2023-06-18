@@ -42,11 +42,11 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
 
 ```{r qq}
 ## work out slope and intercept of line for Q-Q plot any theoretical distribution
-qq <- function(y, fun = qnorm, ...){
+qq <- function(y, qfun = qnorm, ...){
     q_sample <- quantile(y, # sample data
                          c(0.25, 0.75), # quantiles to compute (only need 2)
                          names = FALSE, na.rm = TRUE)
-    qfun <- match.fun(fun)
+    qfun <- match.fun(qfun)
     q_theory <- qfun(c(0.25, 0.75), ...) # work out theoretical quantiles
     slope <- diff(q_sample) / diff(q_theory) # slope = (y2 - y1)/(x2 - x1)
     intercept <- q_sample[1] - slope * q_theory[1] # intercept = y1 - slope*x1
