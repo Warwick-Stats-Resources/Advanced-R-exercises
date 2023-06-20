@@ -18,6 +18,9 @@ summary.ols <- function(object, ...){
   class(res) <- c("summary.ols", class(res))
   res
 }
+
+summary(res)
+
 print.summary.ols <- function(x, ...){
   cf <- coef(x)
   cat("Coefficients: \n") 
