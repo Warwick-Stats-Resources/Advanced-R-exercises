@@ -5,3 +5,4 @@ f <- function(n){
 	y.z <- (y %*% z)
 	apply(y.z, 1, mean) #1: 2nd and 3rd arguments in wrong order; #2: yz -> y.z
 }
+
