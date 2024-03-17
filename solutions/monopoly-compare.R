@@ -29,3 +29,4 @@ profvis({for (i in 1:10) move_square(0)})
 # now get some detail
 profvis({for (i in 1:1000) move_square(0)})
 
+profvis({for (i in 1:1000) move_square2(0)})

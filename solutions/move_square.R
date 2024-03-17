@@ -1,4 +1,4 @@
-move_square0 <- function(current) {
+move_square <- function(current) {
   df = data.frame(d1 = sample(seq(1, 6), 3, replace = TRUE),
                   d2 = sample(seq(1, 6), 3, replace = TRUE))
   
