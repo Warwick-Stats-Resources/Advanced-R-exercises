@@ -17,7 +17,7 @@ set_seed <- function(expr){
   eval(expr)
 }
 
-Rcpp::sourceCpp("solutions/gibbs.cpp")
+Rcpp::sourceCpp("solutions/07-r-cpp/gibbs.cpp")
 set_seed(gibbs_r(100, 10)) 
 set_seed(gibbs_cpp(100, 10)) 
 

@@ -13,7 +13,7 @@ w <- c(0.2, 0.5, 0.3)
 
 wmean_r(x, w)
 
-Rcpp::sourceCpp("solutions/wmean.cpp")
+Rcpp::sourceCpp("solutions/07-r-cpp/wmean.cpp")
 wmean_cpp(x, w)
 
 x <- 1:10000
