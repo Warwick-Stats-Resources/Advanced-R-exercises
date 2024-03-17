@@ -47,7 +47,7 @@ ggplot(dat, aes(x = sort(theoretical), y = sort(sample))) +
 
 ## Exercise 2
 
-Copy your `qq_norm()` fuction to the `qq` chunk below and rename the function `qq`. 
+Copy your `qq_norm()` function to the `qq` chunk below and rename the function `qq`. 
 
 Add a new argument `fun` to specify any quantile function (e.g. `qt`, `qf`, 
 etc). Give it the default value `qnorm`. 
