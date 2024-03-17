@@ -21,5 +21,6 @@ w <- rep(1/10000, 10000)
 
 wmean_cpp(x, w)
 wmean_r(x, w)
+weighted.mean(x, w)
 
-bench::mark(wmean_cpp(x, w), wmean_r(x, w))
+bench::mark(wmean_cpp(x, w), wmean_r(x, w), weighted.mean(x, w))

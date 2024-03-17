@@ -12,14 +12,14 @@ gibbs_r <- function(N, thin) {
   mat
 }
 
-gibbs_with_seed <- function(expr){
+set_seed <- function(expr){
   set.seed(1)
   eval(expr)
 }
 
 Rcpp::sourceCpp("solutions/gibbs.cpp")
-gibbs_with_seed(gibbs_r(100, 10)) 
-gibbs_with_seed(gibbs_cpp(100, 10)) 
+set_seed(gibbs_r(100, 10)) 
+set_seed(gibbs_cpp(100, 10)) 
 
 bench::mark(gibbs_with_seed(gibbs_r(100, 10)),
             gibbs_with_seed(gibbs_cpp(100, 10)))
