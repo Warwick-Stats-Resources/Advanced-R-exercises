@@ -20,6 +20,8 @@ summary.ols <- function(object, ...){
 }
 
 summary(res)
+res_summary <- summary(res)
+class(res_summary)
 
 print.summary.ols <- function(x, ...){
   cf <- coef(x)

@@ -18,8 +18,8 @@ set_seed <- function(expr){
 }
 
 Rcpp::sourceCpp("solutions/07-r-cpp/gibbs.cpp")
-set_seed(gibbs_r(100, 10)) 
-set_seed(gibbs_cpp(100, 10)) 
+set_seed(gibbs_r(100, 10)) |> head()
+set_seed(gibbs_cpp(100, 10)) |> head()
 
-bench::mark(gibbs_with_seed(gibbs_r(100, 10)),
-            gibbs_with_seed(gibbs_cpp(100, 10)))
+bench::mark(set_seed(gibbs_r(100, 10)),
+            set_seed(gibbs_cpp(100, 10)))

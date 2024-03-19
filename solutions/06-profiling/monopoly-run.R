@@ -1,3 +1,5 @@
+library(profvis)
+
 run <- function(n, fun){
   x <- numeric(n)
   for (i in seq_len(n)) {
@@ -7,7 +9,7 @@ run <- function(n, fun){
   x
 }
 
-n <- 1000
+n <- 10000
 bench::mark(run(n, move_square), run(n, move_square2))
 
 profvis(run(n, move_square))
