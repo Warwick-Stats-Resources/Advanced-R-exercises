@@ -26,8 +26,8 @@ slope <- diff(q_sample) / diff(q_theory) # slope = (y2 - y1)/(x2 - x1)
 intercept <- q_sample[1] - slope * q_theory[1] # intercept = y1 - slope*x1
 ```
 
-Run the `qq_norm` chunk to source your new function, then run the 
-`normal-QQ` chunk below, which uses the `qq_norm` function to compute 
+When done, run the `qq_norm` chunk (press the green play button) to source your new function, 
+then run the `normal-QQ` chunk below, which uses the `qq_norm` function to compute 
 parameters for an example plot.
 
 ```{r normal-QQ}
