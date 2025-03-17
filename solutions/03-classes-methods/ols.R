@@ -10,8 +10,8 @@ print.ols <- function(x, ...){
 }
 
 set.seed(1)
-res <- ols(x = 1:3, y = rnorm(3))
-res
+fit <- ols(x = 1:3, y = rnorm(3))
+fit
 
 summary.ols <- function(object, ...){
   res <- NextMethod() # summary.lm
@@ -19,9 +19,13 @@ summary.ols <- function(object, ...){
   res
 }
 
-summary(res)
-res_summary <- summary(res)
-class(res_summary)
+summary(fit)
+fit_summary <- summary(fit)
+class(fit_summary)
+
+# compare
+lm_fit <- lm(y ~ x,  data.frame(x = 1:3, y = rnorm(3)))
+class(summary(lm_fit))
 
 print.summary.ols <- function(x, ...){
   cf <- coef(x)
@@ -32,4 +36,5 @@ print.summary.ols <- function(x, ...){
   cat("Multiple R-squared: ", x$r.squared, "\n")
 }
 
-summary(res)
+summary(fit)
+summary(lm_fit) # for comparison
