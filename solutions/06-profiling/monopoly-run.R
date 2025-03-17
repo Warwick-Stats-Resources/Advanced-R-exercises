@@ -1,5 +1,8 @@
 library(profvis)
 
+source(here::here("solutions", "06-profiling", "move_square.R"))
+source(here::here("solutions", "06-profiling", "move_square2.R"))
+
 run <- function(n, fun){
   x <- numeric(n)
   for (i in seq_len(n)) {
