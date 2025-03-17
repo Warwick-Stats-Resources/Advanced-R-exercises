@@ -23,6 +23,8 @@ summary(fit)
 fit_summary <- summary(fit)
 class(fit_summary)
 
+sloop::s3_dispatch(summary(fit))
+
 # compare
 lm_fit <- lm(y ~ x,  data.frame(x = 1:3, y = rnorm(3)))
 class(summary(lm_fit))
@@ -38,3 +40,5 @@ print.summary.ols <- function(x, ...){
 
 summary(fit)
 summary(lm_fit) # for comparison
+
+
